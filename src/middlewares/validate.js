@@ -1,6 +1,8 @@
 function validate(schema) {
   function checkData(req, res, next) {
     const result = schema.validate(req.body);
+    // console.log("Result mein kya aaya hein", result);
+
     if (result.error) {
       return res.status(400).json({
         success: false,
