@@ -11,11 +11,13 @@ const {
   registerUser,
   loginUser,
   getMyProfile,
+  updateMyProfile,
 } = require("../controllers/authController");
 
 router.post("/register", validate(registerSchema), registerUser);
 router.post("/login", validate(loginSchema), loginUser);
 
 router.get("/profile", protect, getMyProfile);
+router.put("/profile", protect, updateMyProfile);
 
 module.exports = router;

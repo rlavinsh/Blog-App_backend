@@ -135,4 +135,47 @@ const getMyProfile = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getMyProfile };
+// Update Profile
+
+const updateMyProfile = async (req, res) => {
+  try {
+    const { name, bio } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { name, bio },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        bio: user.bio,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error) {
+    console.error("Update profile error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+module.exports = { registerUser, loginUser, getMyProfile, updateMyProfile };
