@@ -7,17 +7,15 @@ const { registerSchema, loginSchema } = require("../validator/authValidator");
 
 const validate = require("../middlewares/validate");
 
-const { registerUser, loginUser } = require("../controllers/authController");
+const {
+  registerUser,
+  loginUser,
+  getMyProfile,
+} = require("../controllers/authController");
 
 router.post("/register", validate(registerSchema), registerUser);
 router.post("/login", validate(loginSchema), loginUser);
 
-router.get("/profile", protect, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "You accessed the protected profile route",
-    userId: req.userId,
-  });
-});
+router.get("/profile", protect, getMyProfile);
 
 module.exports = router;
