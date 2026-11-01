@@ -9,6 +9,8 @@ const {
   createPost,
   getAllPosts,
   getPostById,
+  updatePost,
+  deletePost,
 } = require("../controllers/postController");
 
 router.post("/", protect, validate(createPostSchema), createPost);
@@ -16,5 +18,9 @@ router.post("/", protect, validate(createPostSchema), createPost);
 router.get("/", getAllPosts);
 
 router.get("/:id", getPostById);
+
+router.put("/:id", protect, updatePost);
+
+router.delete("/:id", protect, deletePost);
 
 module.exports = router;
