@@ -16,6 +16,7 @@ const {
   loginUser,
   getMyProfile,
   updateMyProfile,
+  logoutUser,
 } = require("../controllers/authController");
 
 router.post("/register", validate(registerSchema), registerUser);
@@ -23,5 +24,7 @@ router.post("/login", validate(loginSchema), loginUser);
 
 router.get("/profile", protect, getMyProfile);
 router.put("/profile", protect, validate(updateProfileSchema), updateMyProfile);
+
+router.post("/logout", logoutUser);
 
 module.exports = router;

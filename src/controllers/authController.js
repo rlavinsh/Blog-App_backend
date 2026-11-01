@@ -186,4 +186,25 @@ const updateMyProfile = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getMyProfile, updateMyProfile };
+// Logout Controller
+
+const logoutUser = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getMyProfile,
+  updateMyProfile,
+  logoutUser,
+};
