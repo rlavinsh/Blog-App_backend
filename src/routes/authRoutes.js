@@ -3,7 +3,11 @@ const router = express.Router();
 
 const protect = require("../middlewares/authMiddleware");
 
-const { registerSchema, loginSchema } = require("../validator/authValidator");
+const {
+  registerSchema,
+  loginSchema,
+  updateProfileSchema,
+} = require("../validator/authValidator");
 
 const validate = require("../middlewares/validate");
 
@@ -18,6 +22,6 @@ router.post("/register", validate(registerSchema), registerUser);
 router.post("/login", validate(loginSchema), loginUser);
 
 router.get("/profile", protect, getMyProfile);
-router.put("/profile", protect, updateMyProfile);
+router.put("/profile", protect, validate(updateProfileSchema), updateMyProfile);
 
 module.exports = router;
