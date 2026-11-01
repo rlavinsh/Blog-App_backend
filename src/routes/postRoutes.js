@@ -5,8 +5,10 @@ const protect = require("../middlewares/authMiddleware");
 const validate = require("../middlewares/validate");
 
 const { createPostSchema } = require("../validator/postValidator");
-const { createPost } = require("../controllers/postController");
+const { createPost, getAllPosts } = require("../controllers/postController");
 
 router.post("/", protect, validate(createPostSchema), createPost);
+
+router.get("/", getAllPosts);
 
 module.exports = router;
